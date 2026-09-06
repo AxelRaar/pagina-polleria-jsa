@@ -32,3 +32,25 @@ Este módulo no recibe parámetros de entrada. Su responsabilidad es exportar la
 
 4. **`menuJSON` (String)**
    * Serialización formateada de la variable `menuPrincipal`.
+
+## 2. Validación y Manipulación de Cadenas
+
+**Responsable:** Axel Rabanal  
+**Objetivo del Módulo:**  
+Gestionar la interacción inicial con el cliente capturando sus datos personales mediante ventanas emergentes (`prompt()`), aplicando transformaciones de texto y garantizando la integridad de la información mediante validaciones estrictas con expresiones regulares antes de permitir el inicio del pedido.
+
+**Responsabilidades Técnicas:**
+* Diseñar la función principal `registrarCliente()` controlando el flujo mediante bucles `while` y variables de estado (booleanos invertidos tipo `!esValido`) para prevenir bloqueos de memoria y evitar el uso de bucles infinitos.
+* Aplicar los métodos `trim()` para limpieza de espacios y `toUpperCase()` para estandarizar cadenas.
+* Validar el formato del DNI utilizando el método `test()` y la expresión regular `/^\d{8}$/`.
+* Validar el número de celular peruano con la expresión regular `/^9\d{8}$/`.
+* Validar el correo electrónico con la expresión regular `/^[\w.-]+@[\w-]+\.[a-z]{2,}$/i`, usando la bandera `i`.
+* Generar un código de cliente único de 10 caracteres utilizando `slice()` para la extracción y `padStart()` para el relleno.
+
+**Contrato de Datos (Salidas):**  
+La función no requiere parámetros de entrada y retorna obligatoriamente un **Objeto Literal** con la siguiente estructura:
+* `nombre`: Tipo String (ejemplo: "JUAN PEREZ")
+* `dni`: Tipo String (ejemplo: "70123456")
+* `telefono`: Tipo String (ejemplo: "987654321")
+* `email`: Tipo String (ejemplo: "juan.perez@email.com")
+* `codigo`: Tipo String (ejemplo: "000JUA3456")
