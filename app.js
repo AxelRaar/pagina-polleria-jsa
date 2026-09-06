@@ -34,3 +34,70 @@ for (const producto of menuPrincipal) {
 }
 
 const menuJSON = JSON.stringify(menuPrincipal, null, 2);
+
+function registrarCliente() {
+    let nombre = "";
+    let dni = "";
+    let telefono = "";
+    let email = "";
+    
+let nombreValido = false;
+    while (!nombreValido) { 
+        let inputNombre = prompt("Ingrese su nombre completo:");
+        if (inputNombre && inputNombre.trim().length > 0) {
+            nombre = inputNombre.trim().toUpperCase();
+            nombreValido = true; 
+        } else {
+            alert("Error: El nombre no puede estar vacío.");
+        }
+    }
+
+const regexDni = /^\d{8}$/;
+    let dniValido = false;
+    while (!dniValido) {
+        let inputDni = prompt("Ingrese su número de DNI (8 dígitos):");
+        if (inputDni && regexDni.test(inputDni.trim())) {
+            dni = inputDni.trim();
+            dniValido = true;
+        } else {
+            alert("Error: El DNI debe contener exactamente 8 dígitos numéricos.");
+        }
+    }
+
+    const regexTel = /^9\d{8}$/;
+    let telValido = false;
+    while (!telValido) {
+        let inputTel = prompt("Ingrese su número de celular (debe empezar con 9 y tener 9 dígitos):");
+        if (inputTel && regexTel.test(inputTel.trim())) {
+            telefono = inputTel.trim();
+            telValido = true;
+        } else {
+            alert("Error: Formato de celular incorrecto. Debe iniciar con 9 y tener 9 dígitos.");
+        }
+    }
+
+const regexEmail = /^[\w.-]+@[\w-]+\.[a-z]{2,}$/i;
+    let emailValido = false;
+    while (!emailValido) {
+        let inputEmail = prompt("Ingrese su correo electrónico:");
+        if (inputEmail && regexEmail.test(inputEmail.trim())) {
+            email = inputEmail.trim();
+            emailValido = true;
+        } else {
+            alert("Error: El formato del correo electrónico no es válido.");
+        }
+    }
+
+let letrasNombre = nombre.replace(/\s/g, '').slice(0, 3);
+    let digitosDni = dni.slice(-4);
+    let codigoBase = letrasNombre + digitosDni;
+    let codigoFinal = codigoBase.padStart(10, "0");
+
+    return {
+        nombre: nombre,
+        dni: dni,
+        telefono: telefono,
+        email: email,
+        codigo: codigoFinal
+    };
+}
